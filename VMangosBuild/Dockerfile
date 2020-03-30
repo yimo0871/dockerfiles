@@ -1,10 +1,5 @@
-FROM library/mysql
+FROM linuxserver/mariadb
 
-
-
-
-
--------------------------------------------------------------------------------------------------------------
 RUN \
   apt-get --assume-yes update && apt-get --assume-yes upgrade && \
   apt-get --assume-yes install build-essential gcc g++ automake git-core autoconf make patch \
