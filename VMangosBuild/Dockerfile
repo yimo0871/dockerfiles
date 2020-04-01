@@ -1,11 +1,11 @@
-FROM mysql:5.7
+FROM Ubuntu:16.04
 MAINTAINER yimo "42022883@qq.com"
 
 RUN \
   apt-get --assume-yes update && apt-get --assume-yes upgrade && \
   apt-get --assume-yes install build-essential gcc g++ automake git-core git autoconf make patch \
-  libmysql++-dev libtool libssl-dev grep binutils zlibc libc6 libbz2-dev cmake subversion \
-  libboost-all-dev wget vim tumx screen libace-dev 
+  libmysql++-dev mysql-server php5.6 nginx libtool libssl-dev grep binutils zlibc libc6 libbz2-dev cmake subversion \
+  libboost-all-dev screen libace-dev 
 
 RUN yum install wget \
     && wget -O ACE-6.5.0.tar.gz "http://download.dre.vanderbilt.edu/previous_versions/ACE-6.5.0.tar.gz" \
