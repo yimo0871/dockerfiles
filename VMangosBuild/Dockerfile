@@ -1,4 +1,4 @@
-FROM Ubuntu:16.04
+FROM ubuntu:16.04
 MAINTAINER yimo "42022883@qq.com"
 
 RUN \
