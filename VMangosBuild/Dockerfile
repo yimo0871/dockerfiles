@@ -71,7 +71,7 @@ RUN \
   make && make install 
   
 RUN \
-  mysql -u root -p 123456 && \
+  mysql -u root -p && \
   CREATE DATABASE IF NOT EXISTS realmd DEFAULT CHARSET utf8 COLLATE utf8_general_ci; && \
   CREATE DATABASE IF NOT EXISTS characters DEFAULT CHARSET utf8 COLLATE utf8_general_ci; && \
   CREATE DATABASE IF NOT EXISTS mangos DEFAULT CHARSET utf8 COLLATE utf8_general_ci; && \
