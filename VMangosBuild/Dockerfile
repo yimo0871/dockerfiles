@@ -2,10 +2,11 @@ FROM ubuntu:16.04
 MAINTAINER yimo "42022883@qq.com"
 
 RUN \
+  --name mangos -d -p 3306:3306  -e MYSQL_ROOT_PASSWORD=123456 mysql:5.5
   apt-get --assume-yes update && apt-get --assume-yes upgrade && \
   apt-get --assume-yes install build-essential gcc g++ automake git-core git autoconf make patch \
-  libmysql++-dev mysql-server php5.6 nginx libtool libssl-dev grep binutils zlibc libc6 libbz2-dev cmake subversion \
-  libboost-all-dev screen libace-dev 
+  libmysql++-dev php5.6 nginx libtool libssl-dev grep binutils zlibc libc6 libbz2-dev cmake subversion \
+  libboost-all-dev screen libace-dev mysql-server
 
 RUN yum install wget \
     && wget -O ACE-6.5.0.tar.gz "http://download.dre.vanderbilt.edu/previous_versions/ACE-6.5.0.tar.gz" \
@@ -35,7 +36,7 @@ RUN \
   make && make install 
   
 RUN \
-  mysql -u root -p && \
+  mysql -u root -p 123456 && \
   CREATE DATABASE IF NOT EXISTS realmd DEFAULT CHARSET utf8 COLLATE utf8_general_ci; && \
   CREATE DATABASE IF NOT EXISTS characters DEFAULT CHARSET utf8 COLLATE utf8_general_ci; && \
   CREATE DATABASE IF NOT EXISTS mangos DEFAULT CHARSET utf8 COLLATE utf8_general_ci; && \
