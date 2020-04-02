@@ -1,11 +1,47 @@
 FROM ubuntu:16.04
 MAINTAINER yimo "42022883@qq.com"
-    
+
+RUN apt-get update && \
+    apt-get install -y -q \
+    mysql-server-5.5 \
+    mysql-client-5.5 \
+    libmysqlclient-dev \
+    && apt-get clean
+
+EXPOSE 3306
+
+RUN mkdir -p /mysql /mysql/etc /mysql/bin
+
+ADD mysql.sh /mysql/bin/mysql.sh
+ADD mysqld.cnf /mysql/etc/mysqld.cnf
+ADD my.cnf /mysql/etc/my.cnf
+
+RUN exec mysql_install_db \
+    --verbose \
+    --user=mysql \
+    --basedir=/usr \
+    --datadir=/mysql/data \
+    --defaults-file=/mysql/etc/mysqld.cnf
+
+RUN chown -R mysql /mysql
+
+RUN sudo -u mysql mysqld --defaults-file=/mysql/etc/mysqld.cnf & \
+    sleep 10 && \
+    mysqladmin --socket=/mysql/mysql.sock create docker && \
+    echo "GRANT ALL ON *.* TO docker@'%' IDENTIFIED BY 'docker' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql --defaults-file=/mysql/etc/mysqld.cnf --socket=/mysql/mysql.sock
+
+USER mysql
+
+VOLUME ["/mysql/log", "/mysql/data"]
+
+CMD []
+ENTRYPOINT ["/usr/sbin/mysqld", "--defaults-file=/mysql/etc/mysqld.cnf"]
+
 RUN \
   apt-get --assume-yes update && apt-get --assume-yes upgrade && \
   apt-get --assume-yes install build-essential gcc g++ automake git-core git autoconf make patch \
   libmysql++-dev php5.6 nginx libtool libssl-dev grep binutils zlibc libc6 libbz2-dev cmake subversion \
-  libboost-all-dev screen libace-dev mysql-server
+  libboost-all-dev screen libace-dev
 
 RUN yum install wget \
     && wget -O ACE-6.5.0.tar.gz "http://download.dre.vanderbilt.edu/previous_versions/ACE-6.5.0.tar.gz" \
