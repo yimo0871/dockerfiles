@@ -1,8 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER yimo "42022883@qq.com"
-
+    
 RUN \
-  --name mangos -d -p 3306:3306  -e MYSQL_ROOT_PASSWORD=123456 mysql:5.5
   apt-get --assume-yes update && apt-get --assume-yes upgrade && \
   apt-get --assume-yes install build-essential gcc g++ automake git-core git autoconf make patch \
   libmysql++-dev php5.6 nginx libtool libssl-dev grep binutils zlibc libc6 libbz2-dev cmake subversion \
