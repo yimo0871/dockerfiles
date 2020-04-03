@@ -9,15 +9,15 @@ RUN \
 
 RUN \
   wget -O ACE-6.5.0.tar.gz "http://download.dre.vanderbilt.edu/previous_versions/ACE-6.5.0.tar.gz" \
-  tar -zxvf ACE-6.5.0.tar.gz \
+  tar -zxvf ACE-6.5.0.tar.gz && \
   export ACE_ROOT=/root/ACE_wrappers \
-  export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH \
+  export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH && \
   vim $ACE_ROOT/ace/config.h \
   #include "ace/config-linux.h" \
   vim $ACE_ROOT/include/makeinclude/platform_macros.GNU \
   #include "$(ACE_ROOT)/include/makeinclude/platform_linux.GNU"  \
-  INSTALL_PREFIX = /usr/local \
-  cd "/root/ACE_wrappers " \
+  INSTALL_PREFIX = /usr/local && \
+  cd "/root/ACE_wrappers " && \
   make && make install 
     
 RUN \
