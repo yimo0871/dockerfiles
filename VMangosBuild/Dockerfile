@@ -5,7 +5,7 @@ RUN \
   apt-get --assume-yes update && apt-get --assume-yes upgrade && \
   apt-get --assume-yes install build-essential gcc g++ automake git-core git autoconf make patch \
   libmysql++-dev php5.6 nginx libtool libssl-dev grep binutils zlibc libc6 libbz2-dev cmake subversion \
-  libboost-all-dev screen libace-dev wget
+  libboost-all-dev screen libace-dev wget vim
 
 RUN \
   wget -O ACE-6.5.0.tar.gz "http://download.dre.vanderbilt.edu/previous_versions/ACE-6.5.0.tar.gz" && \
